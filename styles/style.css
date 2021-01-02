@@ -1,20 +1,19 @@
-*{
-    margin:0;
-    padding:0;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-
-header{
+header {
     text-align: center;
 }
 
-.box{
+.box {
     width: 100px;
     height: 100px;
     background-color: #ffd700;
 }
 
-.gameField{
+.gameField {
     margin: 5% auto 0 auto;
     width: 713px;
     display: flex;
@@ -24,51 +23,53 @@ header{
     perspective: 1500px;
 }
 
-.flipper{
+.flipper {
     width: 130px;
     height: 130px;
     margin: 0.3em;
     border: 1px solid transparent;
     border-radius: 8px;
     transition: 0.7s;
-	transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
-.flipper img{
+.flipper img {
     border-radius: 8px;
 }
 
-.front, .back {
-	width: 130px;
-	height: 130px;
+.front,
+.back {
+    width: 130px;
+    height: 130px;
 }
 
-.front, .back {
-	backface-visibility: hidden;
-	position: absolute;
-	top: 0;
-	left: 0;
+.front,
+.back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .front {
-	z-index: 2;
-	transform: rotateY(0deg);
+    z-index: 2;
+    transform: rotateY(0deg);
 }
 
 .back {
-	transform: rotateY(180deg);
-}
-
-.rotateCard{
     transform: rotateY(180deg);
 }
 
-.hiddenSide{
+.rotateCard {
+    transform: rotateY(180deg);
+}
+
+.hiddenSide {
     visibility: hidden;
     opacity: 0;
     transition: visibility 2s, opacity 1s linear;
 }
 
-.hiddenFlipper{
+.hiddenFlipper {
     visibility: hidden;
 }
