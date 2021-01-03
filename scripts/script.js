@@ -12,6 +12,7 @@ let secondCard;
 let isSecondCard = false;
 let unopenedCards;
 
+let card;
 //feed him array & any even number
 const duplicateElements = function(array, times) {
     return array.reduce((res, current) => {
@@ -30,6 +31,7 @@ const shuffle = function(arr) {
 };
 
 const checkCard = function({ target }) {
+    if (target.className !== "front") { return };
     if (!isLocked) {
         if (isSecondCard) {
             isLocked = true;
@@ -77,7 +79,6 @@ const renderCard = function(arr) {
         card.classList.add("flipper");
         card.setAttribute("data-hero", arr[i].slice(4, -4));
         card.setAttribute("draggable", false);
-        card.addEventListener("mousedown", checkCard);
 
         let frontSide = document.createElement("img");
         frontSide.setAttribute("src", imgCover);
@@ -99,6 +100,7 @@ const init = function() {
     arrOfUnits = shuffle(duplicateElements(arrOfUnits, 4));
     unopenedCards = arrOfUnits.length;
     renderCard(arrOfUnits);
+    gameField.addEventListener("click", checkCard);
 }
 
 document.addEventListener("DOMContentLoaded", init);
