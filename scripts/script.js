@@ -1,9 +1,10 @@
-let arrOfUnits = ["img/cartman.jpg",
+let initialArray = ["img/cartman.jpg",
     "img/chief.jpg",
     "img/sten.jpg",
     "img/kyle.jpg",
     "img/kenny.jpg"
 ];
+let arrOfUnits;
 const imgCover = `img/cover.jpg`;
 const gameField = document.querySelector("#gameField");
 let isLocked = false;
@@ -12,7 +13,6 @@ let secondCard;
 let isSecondCard = false;
 let unopenedCards;
 
-let card;
 //feed him array & any even number
 const duplicateElements = function(array, times) {
     return array.reduce((res, current) => {
@@ -31,7 +31,7 @@ const shuffle = function(arr) {
 };
 
 const checkCard = function({ target }) {
-    if (target.className !== "front") { return };
+    if (target.closest(".flipper").className !== "flipper") { return };
     if (!isLocked) {
         if (isSecondCard) {
             isLocked = true;
@@ -73,31 +73,18 @@ const checkCard = function({ target }) {
 };
 
 const renderCard = function(arr) {
-    for (let i = 0; i < arr.length; i++) {
-        let card = document.createElement("div");
-        card.setAttribute("id", i);
-        card.classList.add("flipper");
-        card.setAttribute("data-hero", arr[i].slice(4, -4));
-        card.setAttribute("draggable", false);
-
-        let frontSide = document.createElement("img");
-        frontSide.setAttribute("src", imgCover);
-        frontSide.setAttribute("draggable", false);
-        frontSide.classList.add("front");
-
-        let backSide = document.createElement("img");
-        backSide.setAttribute("src", arr[i]);
-        backSide.setAttribute("draggable", false);
-        backSide.classList.add("back");
-
-        card.appendChild(frontSide);
-        card.appendChild(backSide);
-        gameField.appendChild(card);
-    };
+    let htmlFragment = ``;
+    arr.forEach((el, i) => {
+        htmlFragment += `<div id=${i} class="flipper" data-hero=${el.slice(4,-4)}>
+                                <img src=${imgCover} class="front">
+                                <img src=${el} class="back">
+                         </div>`;
+    });
+    gameField.innerHTML = htmlFragment;
 };
 
 const init = function() {
-    arrOfUnits = shuffle(duplicateElements(arrOfUnits, 4));
+    arrOfUnits = shuffle(duplicateElements(initialArray, 4));
     unopenedCards = arrOfUnits.length;
     renderCard(arrOfUnits);
     gameField.addEventListener("click", checkCard);
